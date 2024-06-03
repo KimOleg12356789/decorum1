@@ -1810,6 +1810,53 @@
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
     <script type="text/javascript" src="js/main.js"></script>
     <script type="text/javascript" src="slick/slick.min.js"></script>
+
+    <script type="text/javascript">
+      
+      jQuery(function($) {
+        //play video btn
+        $(".position-relative video").removeAttr("controls"); //hide controls by default
+        //on clicking play button
+        $(".video-section").each(function() {
+          $(".play-btn").click(function() {
+            var video = $(this)
+              .closest(".position-relative")
+              .find("video")
+              .get(0);
+            video.play();
+            video.controls = true;
+            $(this).css("visibility", "hidden");
+            return false;
+          });
+      
+          //when video is paused
+          $(this)
+            .find("video")
+            .click(function() {
+              var video = $(this).get(0);
+              video.pause();
+              video.controls = false;
+              $(this)
+                .siblings(".play-btn")
+                .css("visibility", "visible");
+              return false;
+            });
+      
+          //when video has ended
+          $(this)
+            .find("video")
+            .on("ended", function() {
+              $(this).get(0).controls = false;
+              $(this)
+                .siblings(".play-btn")
+                .css("visibility", "visible");
+              $(this)
+                .get(0)
+                .load();
+            });
+        });
+      });
+    </script>
   </body>
 
   
